@@ -19,15 +19,21 @@ def mover(x, y, key, xmax, ymax):
 
 def safeAddstr(stdscr, y, x, string):
     try:
-        h, w = stdscr.getmaxyx()
-        if y < 0 or y >= h or x < 0 or x + len(string) > w:
+        ymax, xmax = stdscr.getmaxyx()
+        if 0 > y >= ymax or x < 0 or x + len(string) > xmax:
             return
         
-        maxLen = w - x
-
+        maxLen = xmax - x
         if maxLen <= 0:
             return
         stdscr.addstr(y, x, string[:maxLen])
     except curses.error:
         pass
 
+def safeAddch(stdscr, y, x, ch):
+    try:
+        ymax, xmax = stdscr.getmaxyx()
+        if 0 <= y < ymax and 0 <= x < xmax:
+            stdscr.addch(y, x, ch)
+    except curses.error:
+        pass
