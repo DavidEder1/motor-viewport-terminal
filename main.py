@@ -40,23 +40,33 @@ def safeAddch(stdscr, y, x, ch):
 
 def safeTerminalSize(stdscr, minRows, minCols, ymax, xmax):
     if ymax < minRows or xmax < minCols:
-            if ymax < 3:  # Terminal minúsculo
-                if ymax >= 1 and xmax >= 20:
-                    safeAddstr(stdscr, 0, 0, "TERMINAL MUITO PEQUENO!")
-                if ymax >= 2 and xmax >= 15:
-                    safeAddstr(stdscr, 1, 0, f"{ymax}L x {xmax}C - AUMENTE O TERMINAL!")
-            else:  # Terminal pequeno, mas dá pra mostrar algumas mensagens
-                if ymax >= 1:
-                    safeAddstr(stdscr, 0, 0, '=' * min(40, xmax))  # Linha de separação
-                if ymax >= 2:
-                    safeAddstr(stdscr, 1, 0, 'TERMINAL MUITO PEQUENO!')
-                if ymax >= 3:
-                    safeAddstr(stdscr, 2, 0, f'Min: {minRows}L x {minCols}C')
-                if ymax >= 4:
-                    safeAddstr(stdscr, 3, 0, f'Atual: {ymax}L x {xmax}C')
-                if ymax >= 5:
-                    safeAddstr(stdscr, 4, 0, 'Aumente o terminal ou Q para sair')
-        
+        if ymax < 3:  # Terminal minúsculo
+            if ymax >= 1 and xmax >= 20:
+                safeAddstr(stdscr, 0, 0, "TERMINAL MUITO PEQUENO!")
+            if ymax >= 2 and xmax >= 15:
+                safeAddstr(stdscr, 1, 0, f"{ymax}L x {xmax}C - AUMENTE O TERMINAL!")
+        else:  # Terminal pequeno, mas dá pra mostrar algumas mensagens
+            if ymax >= 1:
+                safeAddstr(stdscr, 0, 0, '=' * min(40, xmax))  # Linha de separação
+            if ymax >= 2:
+                safeAddstr(stdscr, 1, 0, 'TERMINAL MUITO PEQUENO!')
+            if ymax >= 3:
+                safeAddstr(stdscr, 2, 0, f'Min: {minRows}L x {minCols}C')
+            if ymax >= 4:
+                safeAddstr(stdscr, 3, 0, f'Atual: {ymax}L x {xmax}C')
+            if ymax >= 5:
+                safeAddstr(stdscr, 4, 0, 'Aumente o terminal ou Q para sair')
+        if softQuit(stdscr):
+                return True
+
+    return False
+
+def softQuit(stdscr):
+    stdscr.refresh()
+    key = stdscr.getch()  # Captura tecla do usuário
+    if key in (ord('Q'), ord('q')):
+        return True
+    return False
 
 
 def main(stdscr):
@@ -74,4 +84,30 @@ def main(stdscr):
         stdscr.clear()
         alturamax, larguramax = stdscr.getmaxyx()
 
-        # Checagem do tamanho do terminal
+        if safeTerminalSize(stdscr, minRowsNeeded, minColsNeeded, alturamax, larguramax):
+            break
+
+        else:
+            for i in range(ymax):
+                for j in range(xmax):
+                    col = j * 2
+                    if i == y and j == x:
+                        safeAddch(stdscr, i, col, '+')
+                    else:
+                        safeAddch(stdscr, i, col, '.')
+
+            
+            infoY1 = ymax + 1
+            infoY2 = ymax + 2
+            safeAddstr(stdscr, infoY1, 0, f'Posição: ({x}, {y}) Tamanho Terminal: {alturamax}L x {larguramax}C')
+            safeAddstr(stdscr, infoY2, 0, 'Use W/A/S/D ou setas para mover. Q para sair.')
+
+            stdscr.refresh()
+
+            if softQuit(stdscr):
+                break
+
+            key = stdscr.getch()
+            x, y = mover(x, y, key, xmax, ymax)
+
+curses.wrapper(main)
