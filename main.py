@@ -37,3 +37,16 @@ def safeAddch(stdscr, y, x, ch):
             stdscr.addch(y, x, ch) # Adicionar cores
     except curses.error:
         pass
+
+def main(stdscr):
+    curses.curs_set(0)
+    stdscr.nodelay(1)
+    stdscr.timeout(100)
+
+    x, y = 10, 10
+    xmax, ymax = stdscr.getmaxyx()
+
+    minRowsNeeded = ymax + 3 # Espaço para debug da localização e instruções de movimento
+    minColsNeeded = xmax * 2 # Espaçamento entre as colunas
+
+    

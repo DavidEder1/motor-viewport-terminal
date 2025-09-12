@@ -4,7 +4,7 @@
 - [X] Biblioteca curses importada
 - [X] Função mover() com sistema de movimentação básico
 - [X] Funções safeAddstr() e safeAddch() para desenho seguro
-- [ ] Estrutura principal com main(stdscr) e curses.wrapper()
+- [X] Estrutura principal com main(stdscr) e curses.wrapper()
 - [ ] Sistema de loop principal com stdscr.getch()
 - [ ] Controle de tamanho de terminal
 
