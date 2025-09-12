@@ -34,9 +34,30 @@ def safeAddch(stdscr, y, x, ch):
     try:
         ymax, xmax = stdscr.getmaxyx()
         if 0 <= y < ymax and 0 <= x < xmax:
-            stdscr.addch(y, x, ch) # Adicionar cores
+            stdscr.addch(y, x, ch) # Adicionar cores futuramente
     except curses.error:
         pass
+
+def safeTerminalSize(stdscr, minRows, minCols, ymax, xmax):
+    if ymax < minRows or xmax < minCols:
+            if ymax < 3:  # Terminal minúsculo
+                if ymax >= 1 and xmax >= 20:
+                    safeAddstr(stdscr, 0, 0, "TERMINAL MUITO PEQUENO!")
+                if ymax >= 2 and xmax >= 15:
+                    safeAddstr(stdscr, 1, 0, f"{ymax}L x {xmax}C - AUMENTE O TERMINAL!")
+            else:  # Terminal pequeno, mas dá pra mostrar algumas mensagens
+                if ymax >= 1:
+                    safeAddstr(stdscr, 0, 0, '=' * min(40, xmax))  # Linha de separação
+                if ymax >= 2:
+                    safeAddstr(stdscr, 1, 0, 'TERMINAL MUITO PEQUENO!')
+                if ymax >= 3:
+                    safeAddstr(stdscr, 2, 0, f'Min: {minRows}L x {minCols}C')
+                if ymax >= 4:
+                    safeAddstr(stdscr, 3, 0, f'Atual: {ymax}L x {xmax}C')
+                if ymax >= 5:
+                    safeAddstr(stdscr, 4, 0, 'Aumente o terminal ou Q para sair')
+        
+
 
 def main(stdscr):
     curses.curs_set(0)
@@ -49,4 +70,8 @@ def main(stdscr):
     minRowsNeeded = ymax + 3 # Espaço para debug da localização e instruções de movimento
     minColsNeeded = xmax * 2 # Espaçamento entre as colunas
 
-    
+    while True:
+        stdscr.clear()
+        alturamax, larguramax = stdscr.getmaxyx()
+
+        # Checagem do tamanho do terminal

@@ -7,6 +7,7 @@
 - [X] Estrutura principal com main(stdscr) e curses.wrapper()
 - [ ] Sistema de loop principal com stdscr.getch()
 - [ ] Controle de tamanho de terminal
+- [ ] Simplificar o codigo e eliminar redundancias
 
 ## Sistema de Mapa
 - [ ] Definir estrutura de dados para o mapa (matriz ou lista de strings)
