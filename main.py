@@ -76,6 +76,7 @@ def main(stdscr):
 
     x, y = 10, 10
     xmax, ymax = stdscr.getmaxyx()
+    tamx, tamy = 19, 19
 
     minRowsNeeded = ymax + 3 # Espaço para debug da localização e instruções de movimento
     minColsNeeded = xmax * 2 # Espaçamento entre as colunas
@@ -88,8 +89,8 @@ def main(stdscr):
             break
 
         else:
-            for i in range(ymax):
-                for j in range(xmax):
+            for i in range(tamy):
+                for j in range(tamx):
                     col = j * 2
                     if i == y and j == x:
                         safeAddch(stdscr, i, col, '+')
