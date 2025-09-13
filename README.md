@@ -5,9 +5,9 @@
 - [X] Função mover() com sistema de movimentação básico
 - [X] Funções safeAddstr() e safeAddch() para desenho seguro
 - [X] Estrutura principal com main(stdscr) e curses.wrapper()
-- [ ] Sistema de loop principal com stdscr.getch()
-- [ ] Controle de tamanho de terminal
-- [ ] Simplificar o codigo e eliminar redundancias
+- [X] Sistema de loop principal com stdscr.getch()
+- [X] Controle de tamanho de terminal
+- [X] Simplificar o codigo e eliminar redundancias
 
 ## Sistema de Mapa
 - [ ] Definir estrutura de dados para o mapa (matriz ou lista de strings)
