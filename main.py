@@ -123,4 +123,3 @@ def main(stdscr):
 if __name__ == "__main__":
     # Inicia o programa no modo curses
     curses.wrapper(main)
-ds
