@@ -14,6 +14,7 @@
 - [ ] Criar mapa maior que a viewport (ex: 50x50 ou maior)
 - [ ] Implementar diferentes tipos de terreno (grama, água, paredes, etc.)
 - [ ] Sistema de colisão baseado no tipo de terreno
+- [X] Gerador de mapas json
 
 ## Sistema de Viewport/Câmera
 - [ ] Definir tamanho fixo da viewport (ex: 19x19)
